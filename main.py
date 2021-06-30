@@ -20,13 +20,8 @@ def main():
         hands_landamaks = ht.landmark_positions(frame)
 
         if hands_landamaks:
-            # for each hand
-            for hand in hands_landamaks:
-                # geting idx and position for each landmark (0 - 1)
-                for id, lm in enumerate(hand.landmark):
-                    x, y = ht.unit_to_img_pixels(dim, (lm.x, lm.y))
-
-                ht.draw_landmarks(frame, hand)
+            landmarks = ht.get_all_landmarks(hands_landamaks, dim)
+            ht.draw_landmarks(frame, hands_landamaks)
 
         utils.show_img('frame', frame)
         q_flag = utils.check('q')
