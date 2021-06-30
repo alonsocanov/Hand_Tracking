@@ -1,13 +1,13 @@
 import time
 import utils
-import hand_tracking as ht
+from hand_tracking import HandTracking
 
 
 def main():
     cap = utils.video_capture(0)
     width, height = cap.get(3), cap.get(4)
 
-    mp_hands, hands, mp_draw = ht.init_hand_tracking()
+    ht = HandTracking()
 
     q_flag = False
 
@@ -17,7 +17,7 @@ def main():
         dim = utils.resize_dim((width, height))
         frame = utils.resize(frame, dim)
 
-        hands_landamaks = ht.landmark_positions(frame, hands)
+        hands_landamaks = ht.landmark_positions(frame)
 
         if hands_landamaks:
             # for each hand
@@ -26,8 +26,7 @@ def main():
                 for id, lm in enumerate(hand.landmark):
                     x, y = ht.unit_to_img_pixels(dim, (lm.x, lm.y))
 
-                mp_draw.draw_landmarks(
-                    frame, hand, mp_hands.HAND_CONNECTIONS)
+                ht.draw_landmarks(frame, hand)
 
         utils.show_img('frame', frame)
         q_flag = utils.check('q')
