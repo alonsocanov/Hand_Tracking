@@ -58,40 +58,27 @@ class HandTracking:
                 landmarks.append(landmark)
         return landmarks
 
+    def finger_add(self, hand):
+        count = 0
+        # thumb
+        if hand[4][2] < hand[5][2]:
+            count += 1
+        # index finger
+        if hand[8][2] < hand[6][2]:
+            count += 1
+        # middle finger
+        if hand[12][2] < hand[10][2]:
+            count += 1
+        # weding finger
+        if hand[16][2] < hand[14][2]:
+            count += 1
+        # pinkey
+        if hand[20][2] < hand[18][2]:
+            count += 1
+        return count
+
     def count_fingers(self, landmarks):
         finger_count = 0
-        if len(landmarks) == 1:
-            for hand in landmarks:
-                # thumb
-                if hand[4][2] < hand[5][2]:
-                    finger_count += 1
-                # index finger
-                if hand[8][2] < hand[6][2]:
-                    finger_count += 1
-                # middle finger
-                if hand[12][2] < hand[10][2]:
-                    finger_count += 1
-                # weding finger
-                if hand[16][2] < hand[14][2]:
-                    finger_count += 1
-                # pinkey
-                if hand[20][2] < hand[18][2]:
-                    finger_count += 1
-        elif len(landmarks) == 2:
-            for hand in landmarks:
-                # thumb
-                if hand[4][2] < hand[5][2]:
-                    finger_count += 1
-                # index finger
-                if hand[8][2] < hand[6][2]:
-                    finger_count += 1
-                # middle finger
-                if hand[12][2] < hand[10][2]:
-                    finger_count += 1
-                # weding finger
-                if hand[16][2] < hand[14][2]:
-                    finger_count += 1
-                # pinkey
-                if hand[20][2] < hand[18][2]:
-                    finger_count += 1
+        for hand in landmarks:
+            finger_count += self.finger_add(hand)
         return finger_count
