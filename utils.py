@@ -27,9 +27,22 @@ def video_capture(value):
     return cv2.VideoCapture(value)
 
 
+def image_position(name='Frame', x=20, y=20):
+    cv2.namedWindow(name)
+    cv2.moveWindow(name, x, y)
+
+
 def show_img(title, img):
     cv2.imshow(title, img)
 
 
 def destroy_windows():
     cv2.destroyAllWindows()
+
+
+def draw_text(img, text):
+    if not isinstance(text, str):
+        text = str(text)
+
+    cv2.putText(img, text, (20, 70),
+                cv2.FONT_HERSHEY_TRIPLEX, 2, (255, 0, 0), 3)

@@ -7,6 +7,9 @@ def main():
     cap = utils.video_capture(0)
     width, height = cap.get(3), cap.get(4)
 
+    win_name = 'Frame'
+    utils.image_position(win_name, 20, 20)
+
     ht = HandTracking()
 
     q_flag = False
@@ -22,8 +25,10 @@ def main():
         if hands_landamaks:
             landmarks = ht.get_all_landmarks(hands_landamaks, dim)
             ht.draw_landmarks(frame, hands_landamaks)
+            count = ht.count_fingers(landmarks)
+            utils.draw_text(frame, count)
 
-        utils.show_img('frame', frame)
+        utils.show_img(win_name, frame)
         q_flag = utils.check('q')
 
     utils.destroy_windows()

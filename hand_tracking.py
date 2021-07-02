@@ -44,8 +44,8 @@ class HandTracking:
         '''
         idx_pos = list()
         for idx, lm in enumerate(hand.landmark):
-            x, y = self.unit_to_img_pixels(dim, (lm.x, lm.y))
-            idx_pos.append([idx, x, y])
+            # x, y = self.unit_to_img_pixels(dim, (lm.x, lm.y))
+            idx_pos.append([idx, lm.x, lm.y])
         return idx_pos
 
     def get_all_landmarks(self, hands_landamaks, dim):
@@ -57,3 +57,41 @@ class HandTracking:
                 landmark = self.get_landmark(dim, hand)
                 landmarks.append(landmark)
         return landmarks
+
+    def count_fingers(self, landmarks):
+        finger_count = 0
+        if len(landmarks) == 1:
+            for hand in landmarks:
+                # thumb
+                if hand[4][2] < hand[5][2]:
+                    finger_count += 1
+                # index finger
+                if hand[8][2] < hand[6][2]:
+                    finger_count += 1
+                # middle finger
+                if hand[12][2] < hand[10][2]:
+                    finger_count += 1
+                # weding finger
+                if hand[16][2] < hand[14][2]:
+                    finger_count += 1
+                # pinkey
+                if hand[20][2] < hand[18][2]:
+                    finger_count += 1
+        elif len(landmarks) == 2:
+            for hand in landmarks:
+                # thumb
+                if hand[4][2] < hand[5][2]:
+                    finger_count += 1
+                # index finger
+                if hand[8][2] < hand[6][2]:
+                    finger_count += 1
+                # middle finger
+                if hand[12][2] < hand[10][2]:
+                    finger_count += 1
+                # weding finger
+                if hand[16][2] < hand[14][2]:
+                    finger_count += 1
+                # pinkey
+                if hand[20][2] < hand[18][2]:
+                    finger_count += 1
+        return finger_count
