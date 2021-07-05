@@ -1,4 +1,6 @@
 import cv2
+import os
+import pandas as pd
 
 
 def resize_dim(dim, fraction=1):
@@ -43,6 +45,27 @@ def destroy_windows():
 def draw_text(img, text):
     if not isinstance(text, str):
         text = str(text)
+    blue = (255, 0, 0)
+    font = cv2.FONT_HERSHEY_TRIPLEX
+    cv2.putText(img, text, (20, 70), font, 2, blue, 3)
 
-    cv2.putText(img, text, (20, 70),
-                cv2.FONT_HERSHEY_TRIPLEX, 2, (255, 0, 0), 3)
+
+def file_exists(path):
+    return os.path.isfile(path)
+
+
+def cvs(file, label, distances):
+    columns = ['label', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+               '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']
+    data = [label]
+    for dist in distances[0]:
+        data.append(dist[1])
+
+    if file_exists(file):
+        df = pd.read_csv(file)
+        temp_df = pd.DataFrame([data], columns=columns, dtype=float)
+        df = df.append(temp_df, ignore_index=False)
+    else:
+        df = pd.DataFrame(data=[data], columns=columns, dtype=float)
+
+    df.to_csv(file, index=False)

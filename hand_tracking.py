@@ -1,5 +1,6 @@
 import mediapipe as mp
 import cv2
+from math import sqrt
 
 
 class HandTracking:
@@ -82,3 +83,22 @@ class HandTracking:
         for hand in landmarks:
             finger_count += self.finger_add(hand)
         return finger_count
+
+    def landmark_l2(sekf, hand):
+        c = hand[0]
+        norm = list()
+        norm_distance = sqrt((hand[0][1] - hand[17][1])
+                             ** 2 + (hand[0][2] - hand[17][2])**2)
+        i = 0
+        for h in hand:
+            l2 = sqrt((c[1] - h[1])**2 + (c[2] - h[2])**2)
+            norm.append([i, l2 / norm_distance])
+            i += 1
+        return norm
+
+    def normalize(self, landmarks):
+        normalized_landmarks = list()
+        for hand in landmarks:
+            normalized = self.landmark_l2(hand)
+            normalized_landmarks.append(normalized)
+        return normalized_landmarks
