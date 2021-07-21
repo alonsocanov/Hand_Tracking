@@ -93,19 +93,3 @@ def train(epochs, train_data, model, optimizer, criterion, device, batch_size, t
                 print('Epoch %d, Sample: %5d/%5d Loss: %.3f' %
                       (epoch, (i + 1) * batch_size, train_lenght, loss))
     return model
-
-
-def validation(model, testloader, criterion):
-    test_loss = 0
-    accuracy = 0
-
-    for inputs, classes in testloader:
-
-        output = model.forward(inputs)
-        test_loss += criterion(output, labels).item()
-
-        ps = torch.exp(output)
-        equality = (labels.data == ps.max(dim=1)[1])
-        accuracy += equality.type(torch.FloatTensor).mean()
-
-    return test_loss, accuracy

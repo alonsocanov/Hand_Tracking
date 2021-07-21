@@ -57,6 +57,8 @@ def main():
         torch.save(model, args.model_path)
 
     elif args.train_test == 'test':
+        # missing test on different dataset
+        c_mtx = torch.zeros(num_labels, num_labels, dtype=torch.int64)
         total_correct = 0
 
         torch.no_grad()
@@ -82,11 +84,15 @@ def main():
             total_correct += sum(y_max == y)
 
             total_samples += batch_size
+            for t, p, in zip(y.tolist(), y_max.tolist()):
+                c_mtx[t, p] += 1
 
         print('Loss:', loss)
         print('Total predictions correct:', int(
             total_correct), 'of', total_samples)
         print('Acuracy:', float(total_correct / total_samples))
+        print('Confusion Matrix:')
+        print(c_mtx.numpy())
 
 
 if __name__ == '__main__':
