@@ -81,6 +81,16 @@ def read_txt(file):
     return labels
 
 
+def video_save(file, dim):
+    out = cv2.VideoWriter(file, cv2.VideoWriter_fourcc(
+        'M', 'J', 'P', 'G'), 24, dim)
+    return out
+
+
+def save_frame(file, img):
+    cv2.imwrite(file, img)
+
+
 def train(epochs, train_data, model, optimizer, criterion, device, batch_size, train_lenght):
 
     for epoch in range(1, epochs + 1):

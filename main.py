@@ -12,6 +12,8 @@ def main():
                         help="choose [count, alpha]", default='alpha')
     parser.add_argument("--model_path", type=str,
                         help="Path to model", default='data/model.pth')
+    parser.add_argument("--save_vid", type=bool,
+                        help="set to [0, 1]", default=0)
     args = parser.parse_args()
 
     if args.count_alpha == 'alpha':
@@ -24,6 +26,10 @@ def main():
 
     cap = utils.video_capture(0)
     width, height = cap.get(3), cap.get(4)
+    dim = utils.resize_dim((width, height))
+
+    if args.save_vid:
+        out = utils.video_save('data/out.avi', dim)
 
     win_name = 'Frame'
     utils.image_position(win_name, 20, 20)
@@ -37,7 +43,6 @@ def main():
     while not q_flag:
         ret, frame = cap.read()
 
-        dim = utils.resize_dim((width, height))
         frame = utils.resize(frame, dim)
 
         hands_landamaks = ht.landmark_positions(frame)
@@ -77,10 +82,13 @@ def main():
                     # utils.draw_text(frame, labels[int(y_max)])
                     utils.draw_text(frame, label, (20, 120), (0, 0, 255))
                     utils.draw_text(frame, string)
+                    if args.save_vid:
+                        out.write(frame)
 
         utils.show_img(win_name, frame)
+        if utils.check('.'):
+            utils.save_frame('data/img.jpg', frame)
         q_flag = utils.check('q')
-
     utils.destroy_windows()
 
 
