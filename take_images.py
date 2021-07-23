@@ -36,7 +36,10 @@ def main():
             for key in keys:
                 if utils.check(key):
                     utils.cvs(file, labels[key], normalized)
-                    print('Saved Distances for:', key, ':', labels[key])
+                    t = time.localtime()
+                    current_time = time.strftime("%H:%M:%S", t)
+                    print(current_time, '- Saved Distances for:',
+                          key, ':', labels[key])
 
         utils.show_img(win_name, frame)
         q_flag = utils.check('-')

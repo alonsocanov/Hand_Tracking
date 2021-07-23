@@ -11,7 +11,7 @@ from utils import train
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--train_test", type=str,
-                        help="choose [train, test]", default='test')
+                        help="choose [train, test]", default='train')
     parser.add_argument("--model_path", type=str,
                         help="Path to model", default='data/model.pth')
     args = parser.parse_args()

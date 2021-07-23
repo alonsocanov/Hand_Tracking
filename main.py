@@ -15,6 +15,8 @@ def main():
     args = parser.parse_args()
 
     if args.count_alpha == 'alpha':
+        labels = utils.read_txt('data/labels.txt')
+        print(labels)
         device = 'cuda' if torch.cuda.is_available() else 'cpu'
         model = torch.load(args.model_path)
         model.eval()
@@ -56,7 +58,7 @@ def main():
 
                     y_hat = model(distance)
                     y_max = torch.argmax(y_hat, dim=1)
-                    utils.draw_text(frame, int(y_max))
+                    utils.draw_text(frame, labels[int(y_max)])
 
         utils.show_img(win_name, frame)
         q_flag = utils.check('q')

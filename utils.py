@@ -71,6 +71,17 @@ def cvs(file, label, distances):
     df.to_csv(file, index=False)
 
 
+def read_txt(file):
+    labels = dict()
+    file = open(file, "r")
+    idx = 0
+    for line in file:
+        labels[idx] = line.strip(' \n')
+        idx += 1
+    file.close()
+    return labels
+
+
 def train(epochs, train_data, model, optimizer, criterion, device, batch_size, train_lenght):
 
     for epoch in range(1, epochs + 1):
