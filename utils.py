@@ -42,12 +42,11 @@ def destroy_windows():
     cv2.destroyAllWindows()
 
 
-def draw_text(img, text):
+def draw_text(img, text, pixel=(20, 70), color=(255, 0, 0)):
     if not isinstance(text, str):
         text = str(text)
-    blue = (255, 0, 0)
     font = cv2.FONT_HERSHEY_TRIPLEX
-    cv2.putText(img, text, (20, 70), font, 2, blue, 3)
+    cv2.putText(img, text, pixel, font, 2, color, 3)
 
 
 def file_exists(path):

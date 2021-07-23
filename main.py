@@ -31,7 +31,9 @@ def main():
     ht = HandTracking()
 
     q_flag = False
-
+    string = ''
+    character = ''
+    counter = 0
     while not q_flag:
         ret, frame = cap.read()
 
@@ -58,7 +60,23 @@ def main():
 
                     y_hat = model(distance)
                     y_max = torch.argmax(y_hat, dim=1)
-                    utils.draw_text(frame, labels[int(y_max)])
+                    label = labels[int(y_max)]
+                    if character == 'b':
+                        string = ''
+                        character = ''
+                        counter = 0
+                    if not counter:
+                        character = labels[int(y_max)]
+                    if label == character:
+                        counter += 1
+                        if counter == 20:
+                            string += character
+                    if character != label:
+                        counter = 0
+
+                    # utils.draw_text(frame, labels[int(y_max)])
+                    utils.draw_text(frame, label, (20, 120), (0, 0, 255))
+                    utils.draw_text(frame, string)
 
         utils.show_img(win_name, frame)
         q_flag = utils.check('q')
