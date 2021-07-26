@@ -11,6 +11,10 @@ In order to make the landmarks irrelevant to the positon in the image distances 
 - Image of the d hand signal recognition
   ![alt text](https://github.com/alonsocanov/Hand_Tracking/blob/master/data/img_2.jpg")
 - videoi feed
-  ![alt text](https://github.com/alonsocanov/Hand_Tracking/blob/master/data/out_2.mov")
+  ![alt text](https://github.com/alonsocanov/Hand_Tracking/blob/master/data/out_2.gif")
+
+## References
 
 - Link for the [mediapipe library](https://google.github.io/mediapipe/solutions/hands.html)
+
+- Link to a helpfull [video from Murtaz's Workshop](https://www.youtube.com/watch?v=NZde8Xt78Iw&t=2479s) on how to use the mdiapipe library
