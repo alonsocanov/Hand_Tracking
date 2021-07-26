@@ -9,9 +9,9 @@ In order to make the landmarks irrelevant to the positon in the image distances 
 ## Images
 
 - Image of the d hand signal recognition
-  ![alt text](https://github.com/alonsocanov/Hand_Tracking/blob/master/data/img_2.jpg")
+  ![alt text](https://github.com/alonsocanov/Hand_Tracking/blob/master/data/img_2.jpg "Image")
 - videoi feed
-  ![alt text](https://github.com/alonsocanov/Hand_Tracking/blob/master/data/out_2.gif")
+  ![alt text](https://github.com/alonsocanov/Hand_Tracking/blob/master/data/out_2.gif "Video")
 
 ## References
 
